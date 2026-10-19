@@ -41,18 +41,35 @@
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Ввод данных</h2>
             
             <form id="tax-form" class="space-y-5">
-                <!-- ОПФ -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Организационно-правовая форма</label>
-                    <div class="flex space-x-4">
-                        <label class="flex items-center">
-                            <input type="radio" name="opf" value="ooo" checked class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-                            <span class="ml-2 text-gray-700">ООО</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="radio" name="opf" value="ip" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-                            <span class="ml-2 text-gray-700">ИП</span>
-                        </label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- ОПФ -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">ОПФ</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="opf" value="ooo" checked class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <span class="ml-2 text-gray-700">ООО</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="opf" value="ip" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <span class="ml-2 text-gray-700">ИП</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Период расчета -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Период расчета</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="period" value="year" checked class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <span class="ml-2 text-gray-700">Год</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="period" value="month" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                <span class="ml-2 text-gray-700">Месяц</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -60,11 +77,11 @@
                 <div>
                     <label for="sno" class="block text-sm font-medium text-gray-700 mb-1">Система налогообложения (СНО)</label>
                     <select id="sno" name="sno" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 bg-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md border">
-                        <option value="usn_d">УСН «Доходы»</option>
-                        <option value="usn_dr">УСН «Доходы-Расходы»</option>
+                        <option value="usn_d">УСН «Доходы» - 6%</option>
+                        <option value="usn_dr">УСН «Доходы-Расходы» - 15%</option>
                         <option value="osno">ОСНО</option>
-                        <option value="ausn_d">АУСН «Доходы»</option>
-                        <option value="ausn_dr">АУСН «Доходы-Расходы»</option>
+                        <option value="ausn_d">АУСН «Доходы» - 8%</option>
+                        <option value="ausn_dr">АУСН «Доходы-Расходы» - 20%</option>
                     </select>
                 </div>
 
@@ -84,19 +101,19 @@
                     <!-- Выручка -->
                     <div>
                         <label for="revenue" class="block text-sm font-medium text-gray-700 mb-1">Выручка (₽)</label>
-                        <input type="number" id="revenue" name="revenue" min="0" value="0" class="mt-1 block w-full border-gray-300 bg-gray-50 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm border">
+                        <input type="text" inputmode="numeric" id="revenue" name="revenue" value="0" class="formatted-number mt-1 block w-full border-gray-300 bg-gray-50 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm border">
                     </div>
                     <!-- Сумма расходов -->
                     <div>
                         <label for="expenses" class="block text-sm font-medium text-gray-700 mb-1">Расходы (₽)</label>
-                        <input type="number" id="expenses" name="expenses" min="0" value="0" class="mt-1 block w-full border-gray-300 bg-gray-50 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm border">
+                        <input type="text" inputmode="numeric" id="expenses" name="expenses" value="0" class="formatted-number mt-1 block w-full border-gray-300 bg-gray-50 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm border">
                     </div>
                 </div>
 
                 <!-- Расходы с НДС (ОСНО) -->
                 <div id="nds-expenses-container" class="hidden">
                     <label for="expenses-nds" class="block text-sm font-medium text-gray-700 mb-1">В т.ч. расходы с НДС (₽)</label>
-                    <input type="number" id="expenses-nds" name="expenses-nds" min="0" value="0" class="mt-1 block w-full border-gray-300 bg-gray-50 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm border">
+                    <input type="text" inputmode="numeric" id="expenses-nds" name="expenses-nds" value="0" class="formatted-number mt-1 block w-full border-gray-300 bg-gray-50 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm border">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -108,7 +125,7 @@
                     <!-- Размер зарплаты -->
                     <div>
                         <label for="salary" class="block text-sm font-medium text-gray-700 mb-1">Средняя зарплата (₽)</label>
-                        <input type="number" id="salary" name="salary" min="0" value="0" class="mt-1 block w-full border-gray-300 bg-gray-50 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm border">
+                        <input type="text" inputmode="numeric" id="salary" name="salary" value="0" class="formatted-number mt-1 block w-full border-gray-300 bg-gray-50 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm border">
                     </div>
                 </div>
             </form>
@@ -174,6 +191,9 @@
                         <!-- Сюда будут вставляться результаты -->
                     </div>
                     
+                    <!-- Сноски для минимального налога -->
+                    <div id="comparison-footnotes" class="mt-2 text-xs text-gray-500 italic space-y-1"></div>
+                    
                     <!-- Важное напоминание о смене СНО -->
                     <div class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-md">
                         <div class="flex">
@@ -204,6 +224,7 @@
         // 1. State Management
         // Unified state object to prevent data desynchronization
         const state = {
+            period: 'year',
             opf: 'ooo',
             sno: 'usn_d',
             ndsRate: 0,
@@ -221,10 +242,14 @@
          * Validates limits for АУСН regime.
          */
         function validateState(currentState) {
+            const scale = currentState.period === 'month' ? 1/12 : 1;
+            const ausnLimit = 60000000 * scale;
+
             const isAusn = currentState.sno.startsWith('ausn');
             if (isAusn) {
-                if (currentState.employees >= 6 || currentState.revenue >= 60000000) {
-                    return "Применение АУСН невозможно при таких условиях, лимит - до 5 сотрудников и выручка строго до 60 млн.";
+                if (currentState.employees >= 6 || currentState.revenue >= ausnLimit) {
+                    const limitStr = currentState.period === 'month' ? '5 млн в месяц' : '60 млн в год';
+                    return `Применение АУСН невозможно при таких условиях, лимит - до 5 сотрудников и выручка строго до ${limitStr}.`;
                 }
             }
             return null;
@@ -233,8 +258,9 @@
         /**
          * Calculates payroll taxes based on salary, employee count, and tax regime.
          */
-        function calculatePayrollTax(salary, employees, sno) {
-            const totalFot = salary * employees;
+        function calculatePayrollTax(salary, employees, sno, period) {
+            const months = period === 'year' ? 12 : 1;
+            const totalFot = salary * employees * months;
             // АУСН: only 13% NDFL
             if (sno.startsWith('ausn')) {
                 return totalFot * 0.13;
@@ -246,32 +272,42 @@
         /**
          * Calculates primary regime taxes and VAT.
          */
-        function calculateRegimeTaxes(revenue, expenses, sno, ndsRate, opf, expensesWithNds) {
+        function calculateRegimeTaxes(revenue, expenses, sno, ndsRate, opf, expensesWithNds, period) {
             let regimeTax = 0;
             let nds = 0;
+            let appliedMinTax = false;
+            
+            const scale = period === 'month' ? 1/12 : 1;
 
             // Расчетный метод НДС: Сумма * (Ставка / (100 + Ставка))
             const calcNds = (amount, rate) => rate > 0 ? amount * (rate / (100 + rate)) : 0;
 
-            // Для УСН порог для уплаты НДС — свыше 20 млн руб.
+            // Для УСН порог для уплаты НДС — свыше 20 млн руб. (масштабируется от периода)
             const isUsn = sno.startsWith('usn');
-            const effectiveNdsRate = (isUsn && revenue <= 20000000) ? 0 : ndsRate;
+            const usnNdsThreshold = 20000000 * scale;
+            const effectiveNdsRate = (isUsn && revenue <= usnNdsThreshold) ? 0 : ndsRate;
 
             switch (sno) {
                 case 'usn_d':
-                    nds = calcNds(revenue, effectiveNdsRate);
+                    let accruedNdsD = calcNds(revenue, effectiveNdsRate);
+                    let inputNdsD = (effectiveNdsRate === 22) ? calcNds(expensesWithNds, 22) : 0;
+                    nds = Math.max(0, accruedNdsD - inputNdsD);
                     // УСН «Доходы» считается за минусом суммы исчисленного НДС
                     regimeTax = Math.max(0, revenue - nds) * 0.06;
                     break;
                 case 'usn_dr':
-                    nds = calcNds(revenue, effectiveNdsRate);
+                    let accruedNdsDr = calcNds(revenue, effectiveNdsRate);
+                    let inputNdsDr = (effectiveNdsRate === 22) ? calcNds(expensesWithNds, 22) : 0;
+                    nds = Math.max(0, accruedNdsDr - inputNdsDr);
                     // УСН «Доходы-Расходы»: сумма НДС входит в расходы
                     let totalExpUsn = expenses + nds;
                     if (revenue > 0 && totalExpUsn >= revenue * 0.94) {
                         regimeTax = revenue * 0.01; // минимальный налог 1%
+                        appliedMinTax = true;
                     } else {
                         let baseTax = Math.max(0, revenue - totalExpUsn) * 0.15;
                         regimeTax = Math.max(baseTax, revenue * 0.01); 
+                        if (regimeTax === revenue * 0.01 && revenue > 0) appliedMinTax = true;
                     }
                     break;
                 case 'osno':
@@ -283,20 +319,25 @@
                     if (opf === 'ooo') {
                         regimeTax = Math.max(0, revenue - expenses) * 0.25; // Налог на прибыль ООО
                     } else if (opf === 'ip') {
-                        // Прогрессивная шкала НДФЛ для ИП на ОСНО
+                        // Прогрессивная шкала НДФЛ для ИП на ОСНО с учетом масштаба периода
                         let base = Math.max(0, revenue - expenses);
                         let tax = 0;
                         
-                        if (base <= 2400000) {
+                        const t1 = 2400000 * scale;
+                        const t2 = 5000000 * scale;
+                        const t3 = 20000000 * scale;
+                        const t4 = 50000000 * scale;
+
+                        if (base <= t1) {
                             tax = base * 0.13;
-                        } else if (base <= 5000000) {
-                            tax = 2400000 * 0.13 + (base - 2400000) * 0.15;
-                        } else if (base <= 20000000) {
-                            tax = 2400000 * 0.13 + 2600000 * 0.15 + (base - 5000000) * 0.18;
-                        } else if (base <= 50000000) {
-                            tax = 2400000 * 0.13 + 2600000 * 0.15 + 15000000 * 0.18 + (base - 20000000) * 0.20;
+                        } else if (base <= t2) {
+                            tax = t1 * 0.13 + (base - t1) * 0.15;
+                        } else if (base <= t3) {
+                            tax = t1 * 0.13 + (t2 - t1) * 0.15 + (base - t2) * 0.18;
+                        } else if (base <= t4) {
+                            tax = t1 * 0.13 + (t2 - t1) * 0.15 + (t3 - t2) * 0.18 + (base - t3) * 0.20;
                         } else {
-                            tax = 2400000 * 0.13 + 2600000 * 0.15 + 15000000 * 0.18 + 30000000 * 0.20 + (base - 50000000) * 0.22;
+                            tax = t1 * 0.13 + (t2 - t1) * 0.15 + (t3 - t2) * 0.18 + (t4 - t3) * 0.20 + (base - t4) * 0.22;
                         }
                         
                         regimeTax = tax;
@@ -308,38 +349,47 @@
                 case 'ausn_dr':
                     if (revenue > 0 && expenses >= revenue * 0.86) {
                         regimeTax = revenue * 0.03; // минимальный налог 3%
+                        appliedMinTax = true;
                     } else {
                         let baseTax = Math.max(0, revenue - expenses) * 0.20;
                         regimeTax = Math.max(baseTax, revenue * 0.03); 
+                        if (regimeTax === revenue * 0.03 && revenue > 0) appliedMinTax = true;
                     }
                     break;
             }
 
-            return { regimeTax, nds };
+            return { regimeTax, nds, appliedMinTax };
         }
 
         /**
          * Calculates IP specific contributions.
          */
-        function calculateIPContributions(opf, sno, revenue, expenses) {
+        function calculateIPContributions(opf, sno, revenue, expenses, period) {
             let fixed = 0;
             let additional = 0;
+            
+            const scale = period === 'month' ? 1/12 : 1;
+            const isAusn = sno.startsWith('ausn');
 
-            if (opf === 'ip') {
-                fixed = 61154; // Фиксированные страховые взносы за год
+            if (opf === 'ip' && !isAusn) {
+                fixed = 61154 * scale; // Фиксированные страховые взносы пропорционально периоду
                 
-                // Дополнительный страховой взнос 1% свыше 300 000 руб.
+                // Дополнительный страховой взнос 1% свыше порога
                 if (sno === 'usn_d' || sno === 'usn_dr' || sno === 'osno') {
                     let baseForAdditional = 0;
+                    const additionalThreshold = 300000 * scale;
                     
                     if (sno === 'usn_d') {
-                        baseForAdditional = revenue - 300000;
+                        baseForAdditional = revenue - additionalThreshold;
                     } else if (sno === 'usn_dr' || sno === 'osno') {
-                        baseForAdditional = revenue - expenses - 300000;
+                        baseForAdditional = revenue - expenses - additionalThreshold;
                     }
 
                     if (baseForAdditional > 0) {
                         additional = baseForAdditional * 0.01;
+                        // Ограничение максимальной суммы доп. взноса
+                        const maxAdditional = 342923 * scale;
+                        additional = Math.min(additional, maxAdditional);
                     }
                 }
             }
@@ -356,16 +406,17 @@
                 return { hasError: true, errorMsg: error };
             }
 
-            const payrollTax = calculatePayrollTax(currentState.salary, currentState.employees, currentState.sno);
-            let { regimeTax, nds } = calculateRegimeTaxes(currentState.revenue, currentState.expenses, currentState.sno, currentState.ndsRate, currentState.opf, currentState.expensesWithNds);
-            const { fixed, additional } = calculateIPContributions(currentState.opf, currentState.sno, currentState.revenue, currentState.expenses);
+            const payrollTax = calculatePayrollTax(currentState.salary, currentState.employees, currentState.sno, currentState.period);
+            let { regimeTax, nds, appliedMinTax } = calculateRegimeTaxes(currentState.revenue, currentState.expenses, currentState.sno, currentState.ndsRate, currentState.opf, currentState.expensesWithNds, currentState.period);
+            const { fixed, additional } = calculateIPContributions(currentState.opf, currentState.sno, currentState.revenue, currentState.expenses, currentState.period);
             
             // Уменьшение налога УСН «Доходы» на сумму страховых взносов
             if (currentState.sno === 'usn_d') {
                 let deductiblePayrollContributions = 0;
                 if (currentState.employees > 0) {
                     // Берем только страховые взносы с ФОТ (30%), без учета 13% НДФЛ
-                    deductiblePayrollContributions = currentState.salary * currentState.employees * 0.30;
+                    const months = currentState.period === 'year' ? 12 : 1;
+                    deductiblePayrollContributions = currentState.salary * currentState.employees * months * 0.30;
                 }
                 
                 const totalDeductible = fixed + additional + deductiblePayrollContributions;
@@ -391,7 +442,8 @@
                 regimeTax,
                 nds,
                 ipFixed: fixed,
-                ipAdditional: additional
+                ipAdditional: additional,
+                appliedMinTax
             };
         }
 
@@ -417,6 +469,7 @@
         const btnCompare = document.getElementById('btn-compare');
         const comparisonContainer = document.getElementById('comparison-container');
         const comparisonResultsEl = document.getElementById('comparison-results');
+        const comparisonFootnotesEl = document.getElementById('comparison-footnotes');
 
         // Formatter for visual convenience (currency styling with digit grouping)
         const currencyFormatter = new Intl.NumberFormat('ru-RU', {
@@ -427,20 +480,44 @@
         });
 
         /**
+         * Helper to parse string with spaces into a clean number
+         */
+        function parseFormattedNumber(val) {
+            if (!val) return 0;
+            // Убираем все пробелы и неразрывные пробелы перед парсингом
+            return parseFloat(val.toString().replace(/\s|\u00A0|\u202F/g, '')) || 0;
+        }
+
+        // Add event listeners to format numeric inputs with spaces
+        document.querySelectorAll('.formatted-number').forEach(input => {
+            input.addEventListener('input', function(e) {
+                // Remove all non-digits
+                let val = this.value.replace(/\D/g, '');
+                if (val !== '') {
+                    // Format with ru-RU locale which uses spaces for thousands
+                    this.value = new Intl.NumberFormat('ru-RU').format(parseInt(val, 10));
+                } else {
+                    this.value = '';
+                }
+            });
+        });
+
+        /**
          * Syncs DOM input values into the state object.
          */
         function updateStateFromDOM() {
+            state.period = document.querySelector('input[name="period"]:checked').value;
             state.opf = document.querySelector('input[name="opf"]:checked').value;
             state.sno = document.getElementById('sno').value;
             state.ndsRate = parseFloat(document.getElementById('nds').value) || 0;
-            state.revenue = parseFloat(document.getElementById('revenue').value) || 0;
-            state.expenses = parseFloat(document.getElementById('expenses').value) || 0;
+            state.revenue = parseFormattedNumber(document.getElementById('revenue').value);
+            state.expenses = parseFormattedNumber(document.getElementById('expenses').value);
             
             const expNdsEl = document.getElementById('expenses-nds');
-            state.expensesWithNds = expNdsEl ? (parseFloat(expNdsEl.value) || 0) : 0;
+            state.expensesWithNds = expNdsEl ? parseFormattedNumber(expNdsEl.value) : 0;
             
             state.employees = parseInt(document.getElementById('employees').value, 10) || 0;
-            state.salary = parseFloat(document.getElementById('salary').value) || 0;
+            state.salary = parseFormattedNumber(document.getElementById('salary').value);
         }
 
         /**
@@ -454,7 +531,7 @@
                 state.ndsRate = 0; // Reset NDS rate if not applicable
             }
 
-            if (state.sno === 'osno') {
+            if (state.sno === 'osno' || (state.sno.startsWith('usn') && state.ndsRate === 22)) {
                 ndsExpensesContainer.classList.remove('hidden');
             } else {
                 ndsExpensesContainer.classList.add('hidden');
@@ -467,23 +544,34 @@
          */
         function renderComparison() {
             const regimes = [
-                { id: 'usn_d', name: 'УСН «Доходы»' },
-                { id: 'usn_dr', name: 'УСН «Доходы-Расходы»' },
+                { id: 'usn_d', name: 'УСН «Доходы» - 6%' },
+                { id: 'usn_dr', name: 'УСН «Доходы-Расходы» - 15%' },
                 { id: 'osno', name: 'ОСНО' },
-                { id: 'ausn_d', name: 'АУСН «Доходы»' },
-                { id: 'ausn_dr', name: 'АУСН «Доходы-Расходы»' }
+                { id: 'ausn_d', name: 'АУСН «Доходы» - 8%' },
+                { id: 'ausn_dr', name: 'АУСН «Доходы-Расходы» - 20%' }
             ];
 
             const tempState = { ...state };
             const results = [];
+            
+            let hasMinTaxUsn = false;
+            let hasMinTaxAusn = false;
 
             regimes.forEach(regime => {
                 tempState.sno = regime.id;
                 const res = computeTaxes(tempState);
+                
+                if (!res.hasError && res.appliedMinTax) {
+                    if (regime.id === 'usn_dr') hasMinTaxUsn = true;
+                    if (regime.id === 'ausn_dr') hasMinTaxAusn = true;
+                }
+
                 results.push({
+                    id: regime.id,
                     name: regime.name,
                     total: res.hasError ? null : res.totalTax,
-                    isCurrent: state.sno === regime.id
+                    isCurrent: state.sno === regime.id,
+                    appliedMinTax: res.hasError ? false : res.appliedMinTax
                 });
             });
 
@@ -501,11 +589,18 @@
                 row.className = `flex justify-between items-center p-3 rounded-lg border ${item.isCurrent ? 'bg-blue-100 border-blue-300' : 'bg-white border-gray-200'} ${index === 0 && item.total !== null ? 'ring-2 ring-green-500' : ''}`;
                 
                 const nameSpan = document.createElement('span');
-                nameSpan.className = `text-sm ${item.isCurrent ? 'font-bold text-blue-800' : 'font-medium text-gray-700'}`;
+                nameSpan.className = `text-sm flex items-center flex-wrap gap-1 ${item.isCurrent ? 'font-bold text-blue-800' : 'font-medium text-gray-700'}`;
                 
                 // Бейджик "Выгодно" для первого элемента с наименьшим налогом
-                let badge = index === 0 && item.total !== null ? `<span class="ml-2 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Выгодно</span>` : '';
-                nameSpan.innerHTML = item.name + badge;
+                let badge = index === 0 && item.total !== null ? `<span class="ml-1 text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full leading-none">Выгодно</span>` : '';
+                
+                // Звездочка для минимального налога
+                let minTaxAsterisk = '';
+                if (item.appliedMinTax) {
+                    minTaxAsterisk = item.id === 'usn_dr' ? '<span class="text-gray-500 font-bold">*</span>' : (item.id === 'ausn_dr' ? '<span class="text-gray-500 font-bold">**</span>' : '');
+                }
+
+                nameSpan.innerHTML = item.name + minTaxAsterisk + badge;
 
                 const valSpan = document.createElement('span');
                 if (item.total === null) {
@@ -520,6 +615,17 @@
                 row.appendChild(valSpan);
                 comparisonResultsEl.appendChild(row);
             });
+            
+            // Отрисовка сносок для минимальных налогов
+            comparisonFootnotesEl.innerHTML = '';
+            if (hasMinTaxUsn || hasMinTaxAusn) {
+                if (hasMinTaxUsn) {
+                    comparisonFootnotesEl.innerHTML += `<p>* Для УСН «Доходы-Расходы» применен минимальный налог (1% от выручки).</p>`;
+                }
+                if (hasMinTaxAusn) {
+                    comparisonFootnotesEl.innerHTML += `<p>** Для АУСН «Доходы-Расходы» применен минимальный налог (3% от выручки).</p>`;
+                }
+            }
         }
 
         btnCompare.addEventListener('click', () => {
